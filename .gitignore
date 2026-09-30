@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local config and secrets
+.env
+.env.*
+!.env.example
+
+# Logs and load-test output
+*.log
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Claude Code local settings
+.claude/settings.local.json

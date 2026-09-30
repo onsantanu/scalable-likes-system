@@ -1,0 +1,23 @@
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: likes_demo
+      MYSQL_USER: likes
+      MYSQL_PASSWORD: likes
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-plikes", "-ulikes"]
+      interval: 5s
+      retries: 20
+
+  redis:
+    image: redis:7.2
+    # AOF with fsync every second: a Redis crash loses at most ~1s of queued likes
+    command: redis-server --appendonly yes --appendfsync everysec
+    ports:
+      - "6380:6379"
